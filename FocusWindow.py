@@ -13,6 +13,11 @@ from PyQt5.QtGui import *
 
 import psutil
 
+
+pass_detection=1
+failed_detection=0
+
+
 fd = cv2.CascadeClassifier(
     r'E:/S/VSCforPython/.vscode/haarcascades/haarcascade_frontalface_alt.xml')
 ed = cv2.CascadeClassifier(
@@ -62,11 +67,13 @@ class focus():
                         1, (255, 255, 0), 2)
             print('eyes open!\n')
             flag = 1
+            return pass_detection
         if len(eyes) == 0:
             cv2.putText(frame, 'eyes close', (10, 10),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
             print('eyes close!\n')
             flag = 0
+            return failed_detection
 
     def procMonitor(self):
         pl = psutil.pids()
@@ -84,6 +91,8 @@ class focusWindow(QDialog):
 
     focus_class = 1
 
+    #eye_close_time=0
+
     def __init__(self, screen_width, screen_height):
         QDialog.__init__(self)
 
@@ -95,11 +104,13 @@ class focusWindow(QDialog):
 
         self.focus_class = focus()
 
+        self.eye_close_time=0
+
         #人眼识别计时器
         self.eye_monitor_timer = QTimer()
         self.eye_monitor_timer.start(100)  #每0.1s进行一次人眼识别
         self.eye_monitor_timer.timeout.connect(
-            lambda: self.focus_class.eyeMonitor())
+            lambda: self.doEyeMonitor())
 
         #专注时间计时器
         self.time_display_timer = QTimer()
@@ -121,6 +132,17 @@ class focusWindow(QDialog):
         self.setWindowOpacity(0.5)
         # 手状鼠标
         self.setCursor(Qt.PointingHandCursor)
+
+
+    def doEyeMonitor(self):
+        if self.focus_class.eyeMonitor()==failed_detection:
+            self.eye_close_time=self.eye_close_time+1
+        else:
+            self.eye_close_time=0
+        
+        if self.eye_close_time>50:
+            print("failed!!!!!!!!!!!!")
+
 
     def mousePressEvent(self, event: QMouseEvent):
         if event.button() == Qt.LeftButton:
