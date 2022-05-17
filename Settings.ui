@@ -49,14 +49,27 @@
   <widget class="QPushButton" name="save">
    <property name="geometry">
     <rect>
-     <x>590</x>
-     <y>270</y>
+     <x>580</x>
+     <y>290</y>
      <width>101</width>
      <height>91</height>
     </rect>
    </property>
    <property name="text">
     <string>Save</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="delnow">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>170</y>
+     <width>101</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Delete</string>
    </property>
   </widget>
  </widget>

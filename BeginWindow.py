@@ -10,6 +10,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog
 
 class beginWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
+    focusWindow=0
+
     def __init__(self):
         super(beginWindow, self).__init__()
         self.setupUi(self)
@@ -35,8 +37,10 @@ class beginWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     #开始专注
     def showFocusWidow(self):
-        focusWindow = FocusWindow.focusWindow(screen_height, screen_height)
-        focusWindow.show()
+        if self.focusWindow!=0:
+            del self.focusWindow
+        self.focusWindow = FocusWindow.focusWindow(screen_height, screen_height)
+        self.focusWindow.show()
 
     #打开设置
     def showSettigns(self):
@@ -44,6 +48,7 @@ class beginWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.settings.show()
 
 if __name__ == '__main__':
+    
     app = QtWidgets.QApplication(sys.argv)
     screen_width = app.primaryScreen().geometry().width()
     screen_height = app.primaryScreen().geometry().height()
@@ -52,4 +57,5 @@ if __name__ == '__main__':
     beginWindow.begin_focus.clicked.connect(
         lambda: beginWindow.showFocusWidow())
     beginWindow.settings.clicked.connect(lambda: beginWindow.showSettigns())
+
     sys.exit(app.exec_())

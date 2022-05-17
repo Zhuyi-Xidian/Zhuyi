@@ -25,8 +25,11 @@ class Ui_settings(object):
         self.now_proc.setGeometry(QtCore.QRect(130, 160, 411, 221))
         self.now_proc.setObjectName("now_proc")
         self.save = QtWidgets.QPushButton(settings)
-        self.save.setGeometry(QtCore.QRect(590, 270, 101, 91))
+        self.save.setGeometry(QtCore.QRect(580, 290, 101, 91))
         self.save.setObjectName("save")
+        self.delnow = QtWidgets.QPushButton(settings)
+        self.delnow.setGeometry(QtCore.QRect(580, 170, 101, 91))
+        self.delnow.setObjectName("delnow")
 
         self.retranslateUi(settings)
         QtCore.QMetaObject.connectSlotsByName(settings)
@@ -36,3 +39,4 @@ class Ui_settings(object):
         settings.setWindowTitle(_translate("settings", "设置"))
         self.add_proc.setText(_translate("settings", "add"))
         self.save.setText(_translate("settings", "Save"))
+        self.delnow.setText(_translate("settings", "Delete"))

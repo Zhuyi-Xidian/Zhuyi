@@ -1,8 +1,12 @@
 from __future__ import unicode_literals
 import cv2
-
+import os
 from turtle import screensize
+
 from Ui_Focus import Ui_focus
+import ReportWindow
+from time import strftime
+from time import gmtime
 
 import sys
 from PyQt5 import QtWidgets
@@ -13,10 +17,8 @@ from PyQt5.QtGui import *
 
 import psutil
 
-
-pass_detection=1
-failed_detection=0
-
+pass_detection = 1
+failed_detection = 0
 
 fd = cv2.CascadeClassifier(
     r'E:/S/VSCforPython/.vscode/haarcascades/haarcascade_frontalface_alt.xml')
@@ -33,11 +35,18 @@ class focus():
     end_time = QDateTime.currentDateTime()
     eye_close_time = 0
     eye_close_due = 0
-    app_time = 0
     
+    findflag = 0
+    dictionaryProc = {}
+
+    proc_fail_time=0
 
     def __init__(self) -> None:
         self.begin_time = QDateTime.currentDateTime()
+        file = open(".vscode/Zhuyi/BlockedProc.txt", "r", encoding="utf-8")
+        for line in file:
+            self.dictionaryProc[line[:-1]] = "0"
+        file.close()
 
     def __del__(self):
         pass
@@ -47,6 +56,10 @@ class focus():
         frame = cv2.resize(frame, (640, 480), interpolation=cv2.INTER_AREA)
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         faces = fd.detectMultiScale(frame, 1.3, 5)
+
+        # if len(faces) == 0:
+        #     print("no face!!!!!")
+
         face = vc.read()[1]
         for l, t, w, h in faces:
             a, b = int(w / 2), int(h / 2)
@@ -60,25 +73,47 @@ class focus():
             cv2.ellipse(face, (l + a, t + b), (a, b), 0, 0, 360, (0, 255, 0),
                         2)
 
-        cv2.imshow('eyes', frame)
+        # cv2.imshow('eyes', frame)
 
         if len(eyes) != 0:
             cv2.putText(frame, 'eyes open', (10, 10), cv2.FONT_HERSHEY_SIMPLEX,
                         1, (255, 255, 0), 2)
-            print('eyes open!\n')
+            # print('eyes open!\n')
             flag = 1
             return pass_detection
         if len(eyes) == 0:
             cv2.putText(frame, 'eyes close', (10, 10),
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
-            print('eyes close!\n')
+            # print('eyes close!\n')
             flag = 0
             return failed_detection
 
     def procMonitor(self):
-        pl = psutil.pids()
-        for pid in pl:
-            print( psutil.Process(pid).name())
+
+        # for pid in pl:
+        #     print( psutil.Process(pid).name())
+        file = open(".vscode/Zhuyi/BlockedProc.txt", "r", encoding="utf-8")
+        for line in file:
+            self.findflag = 0
+            # print("检测"+line[:-1]+"...")
+            pl = psutil.pids()
+            for pid in pl:
+                #开启一个禁止应用
+                if psutil.pid_exists(pid) and line[:-1] in psutil.Process(
+                        pid).name() and self.dictionaryProc[line[:-1]] == "0":
+                    self.proc_fail_time = self.proc_fail_time + 1
+                    print(line[:-1] + "is open!")
+                    self.dictionaryProc[line[:-1]] = "1"
+                    self.findflag = 1
+            #关闭一个禁止应用
+            if self.findflag == 0 and self.dictionaryProc[line[:-1]] == "1":
+                print(line[:-1] + "is close!")
+                self.dictionaryProc[line[:-1]] = "0"
+            # for testline in self.dictionaryProc:
+            #     print(testline+self.dictionaryProc[testline])
+            # print(self.findflag)
+        file.close()
+
 
 class focusWindow(QDialog):
 
@@ -91,8 +126,6 @@ class focusWindow(QDialog):
 
     focus_class = 1
 
-    #eye_close_time=0
-
     def __init__(self, screen_width, screen_height):
         QDialog.__init__(self)
 
@@ -104,21 +137,28 @@ class focusWindow(QDialog):
 
         self.focus_class = focus()
 
-        self.eye_close_time=0
+        self.eye_close_counter = 0
+        self.eye_close_time = 0
+        self.eye_close_start_time = 0
+        self.eye_close_secs = 0
 
-        #人眼识别计时器
+        self.child.end_focus.clicked.connect(lambda: self.getReport())
+
+        #人眼识别检测计时器
         self.eye_monitor_timer = QTimer()
-        self.eye_monitor_timer.start(100)  #每0.1s进行一次人眼识别
-        self.eye_monitor_timer.timeout.connect(
-            lambda: self.doEyeMonitor())
+        self.eye_monitor_timer.start(100)  #每0.1s进行一次人眼识别检测
+        self.eye_monitor_timer.timeout.connect(lambda: self.doEyeMonitor())
+
+        #进程监控计时器
+        self.proc_monitor_timer = QTimer()
+        self.proc_monitor_timer.start(20000)  #每20s进行一次进程检测
+        self.proc_monitor_timer.timeout.connect(lambda: self.doProcMonitor())
 
         #专注时间计时器
         self.time_display_timer = QTimer()
-        self.time_display_timer.start(1000) #每1s更新专注时间
-        #elf.time_display_timer.timeout.connect(lambda:self.focusTimeDisplay())
-
-        #进程监控
-        self.focus_class.procMonitor()
+        self.time_display_timer.start(1000)  #每1s更新专注时间
+        self.time_display_timer.timeout.connect(
+            lambda: self.focusTimeDisplay())
 
         #识别窗口大小
         window_width = self.geometry().width()
@@ -133,16 +173,53 @@ class focusWindow(QDialog):
         # 手状鼠标
         self.setCursor(Qt.PointingHandCursor)
 
-
     def doEyeMonitor(self):
-        if self.focus_class.eyeMonitor()==failed_detection:
-            self.eye_close_time=self.eye_close_time+1
+        #未检测到眼睛
+        if self.focus_class.eyeMonitor() == failed_detection:
+            if self.eye_close_counter == 0:  #从睁眼到闭眼，开始闭眼计时
+                self.eye_close_start_time = QDateTime.currentDateTime()
+            self.eye_close_counter = self.eye_close_counter + 1
+        #检测到眼睛
         else:
-            self.eye_close_time=0
-        
-        if self.eye_close_time>50:
-            print("failed!!!!!!!!!!!!")
+            if self.eye_close_counter > 50:  #从闭眼到睁眼，结束闭眼计时
+                self.eye_close_time = self.eye_close_time + 1
+                self.eye_close_secs = self.eye_close_secs + self.eye_close_start_time.secsTo(
+                    QDateTime.currentDateTime())
+                print(self.eye_close_secs)
+            self.eye_close_counter = 0
 
+        if self.eye_close_counter == 50:
+            print("failed_detection:eye")
+
+    def doProcMonitor(self):
+        self.focus_class.procMonitor()
+
+    def getReport(self):
+        if not os.path.exists(".vscode/Zhuyi/focus_history"): 
+            os.makedirs(".vscode/Zhuyi/focus_history")
+
+        filename = QDateTime.currentDateTime().toString('yyyy-MM-dd-') + QDateTime.currentDateTime().toString('hh-mm-ss') + ".txt"
+        file = open(".vscode/Zhuyi/focus_history/" +
+                    filename,
+                    "w",
+                    encoding="utf-8")
+        # file.write(
+        #     strftime("%H:%M:%S", gmtime(focus.begin_time.secsTo(QDateTime.currentDateTime()))) + '\n')  #专注时常
+        file.write(
+            str(self.focus_class.begin_time.secsTo(QDateTime.currentDateTime())) + '\n')  #专注时常
+        file.write(str(self.eye_close_time) + '\n')  #闭眼次数
+        file.write(str(self.eye_close_secs) + '\n')  #闭眼时常
+        file.write(str(self.focus_class.proc_fail_time) + '\n')  #开启禁止应用次数
+
+        file.close()
+
+        self.report = ReportWindow.ReportWindow(filename)
+        self.report.show()
+
+        #关闭focus
+        self.setAttribute(Qt.WA_DeleteOnClose)
+        self.time_display_timer.stop()
+        self.close()
 
     def mousePressEvent(self, event: QMouseEvent):
         if event.button() == Qt.LeftButton:
@@ -261,13 +338,15 @@ class focusWindow(QDialog):
             animation.setEndValue(
                 QtCore.QRect(x, y, self.window_width, self.window_height))
         animation.start()
+
     #贴边隐藏结束
 
     def focusTimeDisplay(self):
-        q_time=QDateTime.currentDateTime()
+        q_time = QDateTime.currentDateTime()
         q_time.setTime(QTime())
-        self.child.focus_time.setText(q_time.addSecs(focus.begin_time.secsTo(QDateTime.currentDateTime())).toString("hh:mm:ss"))
-
+        self.child.focus_time.setText(
+            q_time.addSecs(self.focus_class.begin_time.secsTo(
+                QDateTime.currentDateTime())).toString("hh:mm:ss"))
 
     def paintEvent(self, a0: QtGui.QPaintEvent) -> None:
 
