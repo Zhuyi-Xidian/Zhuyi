@@ -219,6 +219,10 @@ class focusWindow(QDialog):
         #关闭focus
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.time_display_timer.stop()
+        self.eye_monitor_timer.stop()
+        self.proc_monitor_timer.stop()
+        self.time_display_timer.stop()
+        del self.focus_class
         self.close()
 
     def mousePressEvent(self, event: QMouseEvent):
