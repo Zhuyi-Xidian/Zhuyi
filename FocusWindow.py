@@ -21,9 +21,9 @@ pass_detection = 1
 failed_detection = 0
 
 fd = cv2.CascadeClassifier(
-    r'E:/S/VSCforPython/.vscode/haarcascades/haarcascade_frontalface_alt.xml')
+    r'.vscode/haarcascades/haarcascade_frontalface_alt.xml')
 ed = cv2.CascadeClassifier(
-    r'E:/S/VSCforPython/.vscode/haarcascades/haarcascade_eye_tree_eyeglasses.xml'
+    r'.vscode/haarcascades/haarcascade_eye_tree_eyeglasses.xml'
 )
 vc = cv2.VideoCapture(0)
 flag = 0
@@ -100,15 +100,17 @@ class focus():
             for pid in pl:
                 #开启一个禁止应用
                 if psutil.pid_exists(pid) and line[:-1] in psutil.Process(
-                        pid).name() and self.dictionaryProc[line[:-1]] == "0":
-                    self.proc_fail_time = self.proc_fail_time + 1
-                    print(line[:-1] + "is open!")
-                    self.dictionaryProc[line[:-1]] = "1"
+                        pid).name():
+                    if self.dictionaryProc[line[:-1]] == "0":
+                        self.proc_fail_time = self.proc_fail_time + 1
+                        print(line[:-1] + "is open!")
+                        self.dictionaryProc[line[:-1]] = "1"
                     self.findflag = 1
             #关闭一个禁止应用
             if self.findflag == 0 and self.dictionaryProc[line[:-1]] == "1":
                 print(line[:-1] + "is close!")
                 self.dictionaryProc[line[:-1]] = "0"
+
             # for testline in self.dictionaryProc:
             #     print(testline+self.dictionaryProc[testline])
             # print(self.findflag)
@@ -169,7 +171,7 @@ class focusWindow(QDialog):
         # 窗口背景透明
         # self.setAttribute(Qt.WA_TranslucentBackground)
         # 明度(0~1)
-        self.setWindowOpacity(0.5)
+        self.setWindowOpacity(0.7)
         # 手状鼠标
         self.setCursor(Qt.PointingHandCursor)
 
@@ -181,7 +183,7 @@ class focusWindow(QDialog):
             self.eye_close_counter = self.eye_close_counter + 1
         #检测到眼睛
         else:
-            if self.eye_close_counter > 50:  #从闭眼到睁眼，结束闭眼计时
+            if self.eye_close_counter == 50:  #从闭眼到睁眼，结束闭眼计时
                 self.eye_close_time = self.eye_close_time + 1
                 self.eye_close_secs = self.eye_close_secs + self.eye_close_start_time.secsTo(
                     QDateTime.currentDateTime())

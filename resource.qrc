@@ -1,9 +1,11 @@
-
 <!DOCTYPE RCC>
 <RCC version="1.0">
 <qresource>
     <file>images\main_background.png</file>
     <file>images\history2.png</file>
     <file>images\setting.png</file>
+    <file>images\report_background.png</file>
+    <file>images\setting_background.png</file>
+    <file>images\history_background.png</file>
 </qresource>
 </RCC>

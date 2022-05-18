@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'e:\S\VSCforPython\.vscode\Zhuyi\Settings.ui'
+# Form implementation generated from reading ui file 'e:\VSCforPython\.vscode\Zhuyi\Settings.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,22 +14,94 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_settings(object):
     def setupUi(self, settings):
         settings.setObjectName("settings")
-        settings.resize(729, 443)
+        settings.resize(750, 482)
         self.add_proc = QtWidgets.QPushButton(settings)
-        self.add_proc.setGeometry(QtCore.QRect(420, 100, 121, 41))
+        self.add_proc.setGeometry(QtCore.QRect(580, 110, 71, 41))
+        font = QtGui.QFont()
+        font.setFamily("华文仿宋")
+        font.setPointSize(12)
+        self.add_proc.setFont(font)
+        self.add_proc.setStyleSheet("\n"
+"background-color: rgb(161, 196, 111);\n"
+"border-radius:19px;\n"
+"padding:2px 4px;\n"
+"border:1px groove gray;")
         self.add_proc.setObjectName("add_proc")
         self.new_proc = QtWidgets.QLineEdit(settings)
-        self.new_proc.setGeometry(QtCore.QRect(130, 100, 281, 41))
+        self.new_proc.setGeometry(QtCore.QRect(140, 110, 411, 41))
+        self.new_proc.setStyleSheet("background-color: rgb(211, 229, 182);\n"
+"border-radius:17px;\n"
+"padding:1px 5px;")
+        self.new_proc.setFrame(True)
+        self.new_proc.setDragEnabled(False)
+        self.new_proc.setReadOnly(False)
         self.new_proc.setObjectName("new_proc")
         self.now_proc = QtWidgets.QListWidget(settings)
-        self.now_proc.setGeometry(QtCore.QRect(130, 160, 411, 221))
+        self.now_proc.setGeometry(QtCore.QRect(140, 190, 411, 221))
+        self.now_proc.setStyleSheet("background-color: rgb(211, 229, 182);\n"
+"border-radius:35px;\n"
+"padding:20px 20px;")
+        self.now_proc.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.now_proc.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.now_proc.setAutoScroll(True)
+        self.now_proc.setProperty("showDropIndicator", True)
         self.now_proc.setObjectName("now_proc")
         self.save = QtWidgets.QPushButton(settings)
-        self.save.setGeometry(QtCore.QRect(580, 290, 101, 91))
+        self.save.setGeometry(QtCore.QRect(580, 320, 70, 70))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.save.sizePolicy().hasHeightForWidth())
+        self.save.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("华文仿宋")
+        font.setPointSize(12)
+        self.save.setFont(font)
+        self.save.setStyleSheet("border:1px groove gray;\n"
+"background-color: rgb(161, 196, 111);\n"
+"border-radius:35px;\n"
+"padding:2px 4px;")
         self.save.setObjectName("save")
         self.delnow = QtWidgets.QPushButton(settings)
-        self.delnow.setGeometry(QtCore.QRect(580, 170, 101, 91))
+        self.delnow.setGeometry(QtCore.QRect(580, 210, 70, 70))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.delnow.sizePolicy().hasHeightForWidth())
+        self.delnow.setSizePolicy(sizePolicy)
+        self.delnow.setMinimumSize(QtCore.QSize(60, 60))
+        font = QtGui.QFont()
+        font.setFamily("华文仿宋")
+        font.setPointSize(12)
+        self.delnow.setFont(font)
+        self.delnow.setStyleSheet("border:1px groove gray;\n"
+"background-color: rgb(161, 196, 111);\n"
+"border-radius:35px;\n"
+"padding:2px 4px;")
         self.delnow.setObjectName("delnow")
+        self.label = QtWidgets.QLabel(settings)
+        self.label.setGeometry(QtCore.QRect(0, 0, 750, 480))
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap(":/images/setting_background.png"))
+        self.label.setScaledContents(True)
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(settings)
+        self.label_2.setGeometry(QtCore.QRect(260, 20, 211, 41))
+        font = QtGui.QFont()
+        font.setFamily("华文仿宋")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_2.setFont(font)
+        self.label_2.setStyleSheet("color: rgb(161, 196, 111);")
+        self.label_2.setObjectName("label_2")
+        self.label.raise_()
+        self.add_proc.raise_()
+        self.new_proc.raise_()
+        self.now_proc.raise_()
+        self.save.raise_()
+        self.delnow.raise_()
+        self.label_2.raise_()
 
         self.retranslateUi(settings)
         QtCore.QMetaObject.connectSlotsByName(settings)
@@ -37,6 +109,8 @@ class Ui_settings(object):
     def retranslateUi(self, settings):
         _translate = QtCore.QCoreApplication.translate
         settings.setWindowTitle(_translate("settings", "设置"))
-        self.add_proc.setText(_translate("settings", "add"))
-        self.save.setText(_translate("settings", "Save"))
-        self.delnow.setText(_translate("settings", "Delete"))
+        self.add_proc.setText(_translate("settings", "添加"))
+        self.save.setText(_translate("settings", "保存"))
+        self.delnow.setText(_translate("settings", "删除"))
+        self.label_2.setText(_translate("settings", "将应用加入黑名单"))
+import resource_rc
