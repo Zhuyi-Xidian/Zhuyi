@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'e:\S\VSCforPython\.vscode\Zhuyi\Focus.ui'
+# Form implementation generated from reading ui file 'e:\VSCforPython\.vscode\Zhuyi\Focus.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,16 +14,49 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_focus(object):
     def setupUi(self, focus):
         focus.setObjectName("focus")
-        focus.resize(369, 212)
+        focus.resize(311, 223)
+        focus.setStyleSheet("background-color: rgb(255, 255, 244);\n"
+"")
         self.focus_time = QtWidgets.QLabel(focus)
-        self.focus_time.setGeometry(QtCore.QRect(60, 50, 331, 51))
+        self.focus_time.setGeometry(QtCore.QRect(90, 60, 141, 51))
         font = QtGui.QFont()
+        font.setFamily("华光细圆_CNKI")
         font.setPointSize(17)
+        font.setBold(True)
+        font.setWeight(75)
         self.focus_time.setFont(font)
+        self.focus_time.setAutoFillBackground(False)
+        self.focus_time.setStyleSheet("background:transparent")
+        self.focus_time.setText("fucus time")
+        self.focus_time.setTextFormat(QtCore.Qt.PlainText)
+        self.focus_time.setScaledContents(False)
+        self.focus_time.setWordWrap(False)
+        self.focus_time.setOpenExternalLinks(False)
+        self.focus_time.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.focus_time.setObjectName("focus_time")
         self.end_focus = QtWidgets.QPushButton(focus)
-        self.end_focus.setGeometry(QtCore.QRect(80, 120, 121, 31))
+        self.end_focus.setGeometry(QtCore.QRect(100, 170, 101, 41))
+        font = QtGui.QFont()
+        font.setFamily("华文仿宋")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.end_focus.setFont(font)
+        self.end_focus.setStyleSheet("background-color: rgb(242, 248, 210);\n"
+"border-radius:20px;\n"
+"padding:2px 4px;\n"
+"border:1px groove gray;")
         self.end_focus.setObjectName("end_focus")
+        self.label = QtWidgets.QLabel(focus)
+        self.label.setGeometry(QtCore.QRect(80, 10, 151, 151))
+        self.label.setStyleSheet("background-color: rgb(242, 248, 210);\n"
+"border-radius:75px;\n"
+"")
+        self.label.setText("")
+        self.label.setObjectName("label")
+        self.label.raise_()
+        self.focus_time.raise_()
+        self.end_focus.raise_()
 
         self.retranslateUi(focus)
         QtCore.QMetaObject.connectSlotsByName(focus)
@@ -31,5 +64,4 @@ class Ui_focus(object):
     def retranslateUi(self, focus):
         _translate = QtCore.QCoreApplication.translate
         focus.setWindowTitle(_translate("focus", "Dialog"))
-        self.focus_time.setText(_translate("focus", "fucus time here"))
-        self.end_focus.setText(_translate("focus", "结束专注"))
+        self.end_focus.setText(_translate("focus", "点击结束"))

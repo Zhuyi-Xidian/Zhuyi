@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'e:\S\VSCforPython\.vscode\Zhuyi\History.ui'
+# Form implementation generated from reading ui file 'e:\VSCforPython\.vscode\Zhuyi\History.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,13 +14,44 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_history(object):
     def setupUi(self, history):
         history.setObjectName("history")
-        history.resize(659, 487)
+        history.resize(740, 480)
         self.history_list = QtWidgets.QListWidget(history)
-        self.history_list.setGeometry(QtCore.QRect(10, 20, 631, 331))
+        self.history_list.setGeometry(QtCore.QRect(130, 110, 481, 291))
+        self.history_list.setStyleSheet("background-color: rgb(211, 229, 182);\n"
+"border-radius:35px;\n"
+"padding:20px 20px;")
         self.history_list.setObjectName("history_list")
         self.del_history = QtWidgets.QPushButton(history)
-        self.del_history.setGeometry(QtCore.QRect(260, 400, 141, 41))
+        self.del_history.setGeometry(QtCore.QRect(500, 420, 111, 41))
+        font = QtGui.QFont()
+        font.setFamily("华文仿宋")
+        font.setPointSize(12)
+        self.del_history.setFont(font)
+        self.del_history.setStyleSheet("background-color: rgb(161, 196, 111);\n"
+"border-radius:19px;\n"
+"padding:2px 4px;\n"
+"border:1px groove gray;")
         self.del_history.setObjectName("del_history")
+        self.label = QtWidgets.QLabel(history)
+        self.label.setGeometry(QtCore.QRect(0, 0, 740, 480))
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap(":/images/history_background.png"))
+        self.label.setScaledContents(True)
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(history)
+        self.label_2.setGeometry(QtCore.QRect(300, 30, 211, 41))
+        font = QtGui.QFont()
+        font.setFamily("华文仿宋")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_2.setFont(font)
+        self.label_2.setStyleSheet("color: rgb(161, 196, 111);")
+        self.label_2.setObjectName("label_2")
+        self.label.raise_()
+        self.history_list.raise_()
+        self.del_history.raise_()
+        self.label_2.raise_()
 
         self.retranslateUi(history)
         QtCore.QMetaObject.connectSlotsByName(history)
@@ -28,4 +59,6 @@ class Ui_history(object):
     def retranslateUi(self, history):
         _translate = QtCore.QCoreApplication.translate
         history.setWindowTitle(_translate("history", "Dialog"))
-        self.del_history.setText(_translate("history", "del"))
+        self.del_history.setText(_translate("history", "删除"))
+        self.label_2.setText(_translate("history", "查看专注记录"))
+import resource_rc

@@ -6,44 +6,107 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>369</width>
-    <height>212</height>
+    <width>311</width>
+    <height>223</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 244);
+</string>
+  </property>
   <widget class="QLabel" name="focus_time">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>50</y>
-     <width>331</width>
+     <x>90</x>
+     <y>60</y>
+     <width>141</width>
      <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
+     <family>华光细圆_CNKI</family>
      <pointsize>17</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background:transparent</string>
+   </property>
    <property name="text">
-    <string>fucus time here</string>
+    <string notr="true">fucus time</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::PlainText</enum>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+   <property name="openExternalLinks">
+    <bool>false</bool>
+   </property>
+   <property name="textInteractionFlags">
+    <set>Qt::NoTextInteraction</set>
    </property>
   </widget>
   <widget class="QPushButton" name="end_focus">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>120</y>
-     <width>121</width>
-     <height>31</height>
+     <x>100</x>
+     <y>170</y>
+     <width>101</width>
+     <height>41</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>华文仿宋</family>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(242, 248, 210);
+border-radius:20px;
+padding:2px 4px;
+border:1px groove gray;</string>
+   </property>
    <property name="text">
-    <string>结束专注</string>
+    <string>点击结束</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>10</y>
+     <width>151</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(242, 248, 210);
+border-radius:75px;
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <zorder>label</zorder>
+  <zorder>focus_time</zorder>
+  <zorder>end_focus</zorder>
  </widget>
  <resources/>
  <connections/>

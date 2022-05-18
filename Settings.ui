@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>729</width>
-    <height>443</height>
+    <width>750</width>
+    <height>482</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,63 +16,201 @@
   <widget class="QPushButton" name="add_proc">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>100</y>
-     <width>121</width>
+     <x>580</x>
+     <y>110</y>
+     <width>71</width>
      <height>41</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>华文仿宋</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+background-color: rgb(161, 196, 111);
+border-radius:19px;
+padding:2px 4px;
+border:1px groove gray;</string>
+   </property>
    <property name="text">
-    <string>add</string>
+    <string>添加</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="new_proc">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>100</y>
-     <width>281</width>
+     <x>140</x>
+     <y>110</y>
+     <width>411</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(211, 229, 182);
+border-radius:17px;
+padding:1px 5px;</string>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="dragEnabled">
+    <bool>false</bool>
+   </property>
+   <property name="readOnly">
+    <bool>false</bool>
    </property>
   </widget>
   <widget class="QListWidget" name="now_proc">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>160</y>
+     <x>140</x>
+     <y>190</y>
      <width>411</width>
      <height>221</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(211, 229, 182);
+border-radius:35px;
+padding:20px 20px;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="autoScroll">
+    <bool>true</bool>
+   </property>
+   <property name="showDropIndicator" stdset="0">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QPushButton" name="save">
    <property name="geometry">
     <rect>
      <x>580</x>
-     <y>290</y>
-     <width>101</width>
-     <height>91</height>
+     <y>320</y>
+     <width>70</width>
+     <height>70</height>
     </rect>
    </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>华文仿宋</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border:1px groove gray;
+background-color: rgb(161, 196, 111);
+border-radius:35px;
+padding:2px 4px;</string>
+   </property>
    <property name="text">
-    <string>Save</string>
+    <string>保存</string>
    </property>
   </widget>
   <widget class="QPushButton" name="delnow">
    <property name="geometry">
     <rect>
      <x>580</x>
-     <y>170</y>
-     <width>101</width>
-     <height>91</height>
+     <y>210</y>
+     <width>70</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>60</width>
+     <height>60</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <family>华文仿宋</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border:1px groove gray;
+background-color: rgb(161, 196, 111);
+border-radius:35px;
+padding:2px 4px;</string>
+   </property>
+   <property name="text">
+    <string>删除</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>750</width>
+     <height>480</height>
     </rect>
    </property>
    <property name="text">
-    <string>Delete</string>
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resource.qrc">:/images/setting_background.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>20</y>
+     <width>211</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>华文仿宋</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(161, 196, 111);</string>
+   </property>
+   <property name="text">
+    <string>将应用加入黑名单</string>
+   </property>
+  </widget>
+  <zorder>label</zorder>
+  <zorder>add_proc</zorder>
+  <zorder>new_proc</zorder>
+  <zorder>now_proc</zorder>
+  <zorder>save</zorder>
+  <zorder>delnow</zorder>
+  <zorder>label_2</zorder>
  </widget>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>
