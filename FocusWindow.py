@@ -73,7 +73,7 @@ class focus():
             cv2.ellipse(face, (l + a, t + b), (a, b), 0, 0, 360, (0, 255, 0),
                         2)
 
-        # cv2.imshow('eyes', frame)
+        cv2.imshow('eyes', frame)
 
         if len(eyes) != 0:
             cv2.putText(frame, 'eyes open', (10, 10), cv2.FONT_HERSHEY_SIMPLEX,
@@ -183,7 +183,7 @@ class focusWindow(QDialog):
             self.eye_close_counter = self.eye_close_counter + 1
         #检测到眼睛
         else:
-            if self.eye_close_counter == 50:  #从闭眼到睁眼，结束闭眼计时
+            if self.eye_close_counter > 50:  #从闭眼到睁眼，结束闭眼计时
                 self.eye_close_time = self.eye_close_time + 1
                 self.eye_close_secs = self.eye_close_secs + self.eye_close_start_time.secsTo(
                     QDateTime.currentDateTime())

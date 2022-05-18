@@ -24,6 +24,6 @@ class ReportWindow(QDialog):
         lines=file.readlines()
         print(lines)
         self.child.focus_time.setText(strftime("%H:%M:%S", gmtime(int(lines[0][:-1]))))
-        self.child.eye_det_fail_per.setText(lines[1][:-1])
-        self.child.eye_det_fail_time.setText(lines[2][:-1])
+        self.child.eye_det_fail_time.setText(lines[1][:-1])
+        self.child.eye_det_fail_per.setText(lines[2][:-1])
         self.child.proc_det_fail_time.setText(lines[3][:-1])
