@@ -1,6 +1,7 @@
 from Ui_BeginWindow import Ui_MainWindow
 import FocusWindow
 import Settings
+import HistoryWindow
 
 import sys
 from PyQt5 import QtWidgets
@@ -47,6 +48,11 @@ class beginWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.settings = Settings.Settings()
         self.settings.show()
 
+    #打开历史记录
+    def showHistory(self):
+        self.history = HistoryWindow.History()
+        self.history.show()
+
 if __name__ == '__main__':
     
     app = QtWidgets.QApplication(sys.argv)
@@ -57,5 +63,6 @@ if __name__ == '__main__':
     beginWindow.begin_focus.clicked.connect(
         lambda: beginWindow.showFocusWidow())
     beginWindow.settings.clicked.connect(lambda: beginWindow.showSettigns())
+    beginWindow.focus_history.clicked.connect(lambda: beginWindow.showHistory())
 
     sys.exit(app.exec_())

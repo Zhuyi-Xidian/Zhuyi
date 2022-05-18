@@ -52,6 +52,5 @@ class Settings(QDialog):
     def getrow(self):
         self.nowrow=self.child.now_proc.currentIndex().row()
         
-
     def delnow(self):
         self.child.now_proc.takeItem(self.nowrow)
